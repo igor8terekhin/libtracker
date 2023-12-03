@@ -5,7 +5,10 @@ import com.itxn.libratrack.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
@@ -36,9 +39,23 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") Person person) {
+    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "people/create";
         personDAO.create(person);
         return "redirect:people";
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable int id) {
+        model.addAttribute("person", personDAO.show(id));
+        return "people/edit";
+    }
+    @PostMapping("/{id}")
+    public String edit( @ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable int id) {
+        if (bindingResult.hasErrors())
+            return "people/edit";
+        personDAO.edit(id, person);
+        return "redirect:../people";
+    }
 }

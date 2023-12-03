@@ -32,4 +32,9 @@ public class PersonDAO {
         return jdbcTemplate.query("SELECT * FROM person WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).
                 stream().findAny().orElse(null);
     }
+
+    public void edit(int id, Person updatedPerson) {
+        jdbcTemplate.update("UPDATE PERSON SET fullName=?, birthYear=? WHERE id=?", updatedPerson.getFullName(),
+                updatedPerson.getBirthYear(), id);
+    }
 }

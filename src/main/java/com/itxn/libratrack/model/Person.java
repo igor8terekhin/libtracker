@@ -1,9 +1,17 @@
 package com.itxn.libratrack.model;
 
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Person {
 
     private int id;
+    @Min(value = 1900, message = "Birth year cannot be earlier than 1900")
     private int birthYear;
+    @NotEmpty (message = "Name shouldn't be empty!")
+    @Size(min = 2, max = 100, message = "Name should have at least 2 characters!")
     private String fullName;
 
     public Person() {
