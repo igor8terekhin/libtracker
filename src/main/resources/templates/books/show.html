@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${'Book ' + book.getId()}">value</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<h2>Book menu</h2>
+<p th:text="${'Title: ' + book.getTitle()}">VALUE</p>
+<p th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
+<p th:text="${'Year: ' + book.getYear()}">VALUE</p>
+
+<!--<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>-->
+
+<!--<form th:method="GET" th:action="@{/people/delete/{id}(id=${person.getId()})}">-->
+<!--    <input type="submit" value="Delete">-->
+<!--</form>-->
+
+</body>
+</html>

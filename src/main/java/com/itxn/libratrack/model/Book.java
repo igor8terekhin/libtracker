@@ -1,6 +1,9 @@
 package com.itxn.libratrack.model;
 
 public class Book {
+
+    private int id;
+    private int personId;
     private String title;
     private String author;
     private int year;
@@ -12,6 +15,22 @@ public class Book {
         this.title = title;
         this.author = author;
         this.year = year;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public String getTitle() {
