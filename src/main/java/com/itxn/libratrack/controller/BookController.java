@@ -31,6 +31,11 @@ public class BookController {
         return "books/show";
     }
 
+    @GetMapping("/create")
+    public String create (Model model, Book book) {
+        return "books/create";
+    }
+
     @PostMapping
     public String create (@ModelAttribute("book") Book book) {
         bookDAO.create(book);
