@@ -16,8 +16,6 @@ public class PersonDAO {
     public PersonDAO(JdbcTemplate jdbcTemplate)  {
         this.jdbcTemplate = jdbcTemplate;
     }
-    private List<Person> people;
-
 
     public List<Person> index() {
         return jdbcTemplate.query("SELECT * FROM person", new BeanPropertyRowMapper<>(Person.class));
@@ -36,5 +34,9 @@ public class PersonDAO {
     public void edit(int id, Person updatedPerson) {
         jdbcTemplate.update("UPDATE PERSON SET fullName=?, birthYear=? WHERE id=?", updatedPerson.getFullName(),
                 updatedPerson.getBirthYear(), id);
+    }
+
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM person WHERE id=?", id);
     }
 }
