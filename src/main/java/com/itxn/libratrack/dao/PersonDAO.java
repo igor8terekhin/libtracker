@@ -1,5 +1,6 @@
 package com.itxn.libratrack.dao;
 
+import com.itxn.libratrack.model.Book;
 import com.itxn.libratrack.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -38,5 +39,11 @@ public class PersonDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM person WHERE id=?", id);
+    }
+
+    public List<Book> listBooks(int id) {
+        return jdbcTemplate.query("SELECT b.title, b.author, b.year FROM book b " +
+                "JOIN person p ON p.id = b.person_id WHERE b.person_id = ?",
+                new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
     }
 }
