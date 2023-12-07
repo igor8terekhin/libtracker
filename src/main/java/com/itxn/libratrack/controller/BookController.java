@@ -61,5 +61,9 @@ public class BookController {
         return "redirect:/books";
     }
 
-
+    @PostMapping("{id}/free_book")
+    public String freeBook(@PathVariable int id) {
+        bookDAO.freeBook(id);
+        return "redirect:/books/" + id;
+    }
 }

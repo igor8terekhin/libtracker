@@ -12,9 +12,15 @@
 <p th:text="${'Year: ' + book.getYear()}">VALUE</p>
 
 <hr>
-<p th:if="${person != null}" th:utext="${'<b>Held by:</b> ' + person.getFullName()}">VALUE</p>
+<div th:if="${person != null}">
+    <p th:utext="${'<b>Held by:</b> ' + person.getFullName()}">VALUE</p>
+    <form th:method="POST" th:action="@{/books/{id}/free_book(id=${book.getId()})}">
+        <input type="submit" value="Free book"/>
+    </form>
+</div>
 <p th:unless="${person != null}" th:text="'Not held by anyone'">VALUE</p>
 <hr>
+
 
 <a th:href="@{/books/{id}/edit(id=${book.getId()})}">Edit</a>
 
