@@ -10,7 +10,7 @@
     <h2>Books List</h2>
 
     <div th:each="book : ${books}" class="mb-2">
-        <a th:href="@{/books/{id}(id=${book.getId()})}" class="btn btn-primary">
+        <a th:href="@{/books/{id}(id=${book.getId()})}" >
             <span th:text="${book.getAuthor()}"></span>,
             <span th:text="${book.getTitle()}"></span>
         </a>

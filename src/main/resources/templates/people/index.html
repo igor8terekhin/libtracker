@@ -10,7 +10,7 @@
     <h2 class="mb-4">People list</h2>
 
     <div th:each="person : ${people}" class="mb-2">
-        <a th:href="@{/people/{id}(id=${person.getId()})}" class="btn btn-primary">
+        <a th:href="@{/people/{id}(id=${person.getId()})}">
             <span th:text="${person.getFullName()}"></span>,
             <span th:text="${person.getBirthYear()}"></span>
         </a>
