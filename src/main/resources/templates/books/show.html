@@ -18,7 +18,16 @@
         <input type="submit" value="Free book"/>
     </form>
 </div>
-<p th:unless="${person != null}" th:text="'Not held by anyone'">VALUE</p>
+<div th:unless="${person != null}">
+    <p th:text="'Not held by anyone'">VALUE</p>
+    <form th:method="POST" th:action="@{/books/{id}/assign_person(id=${book.getId()})}">
+        <select th:object="${persona}" th:field="*{id}" id="person">
+            <option th:each="personOption : ${people}" th:value="${personOption.getId()}"
+            th:text="${personOption.getFullName()}"></option>
+        </select>
+        <input type="submit" value="Assign">
+    </form>
+</div>
 <hr>
 
 
