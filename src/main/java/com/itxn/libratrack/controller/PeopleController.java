@@ -58,9 +58,11 @@ public class PeopleController {
     }
     @PostMapping("/{id}")
     public String edit( @ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable int id) {
-        personValidator.validate(person, bindingResult);
-        if (bindingResult.hasErrors())
-            return "people/edit";
+        if (!(personDAO.show(id).getFullName()).equals(person.getFullName())) {
+            personValidator.validate(person, bindingResult);
+            if (bindingResult.hasErrors())
+                return "people/edit";
+        }
         personDAO.edit(id, person);
         return "redirect:../people";
     }
