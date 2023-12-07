@@ -1,11 +1,17 @@
 package com.itxn.libratrack.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 public class Book {
 
     private int id;
     private int personId;
+    @NotEmpty(message = "Title shouldn't be empty!")
     private String title;
+    @NotEmpty(message = "Author shouldn't be empty!")
     private String author;
+    @Min(value = 0, message = "Year cannot be earlier than 0")
     private int year;
 
     public Book() {

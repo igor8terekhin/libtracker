@@ -7,7 +7,10 @@ import com.itxn.libratrack.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("books")
@@ -44,7 +47,9 @@ public class BookController {
     }
 
     @PostMapping
-    public String create (@ModelAttribute("book") Book book) {
+    public String create (@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "books/create";
         bookDAO.create(book);
         return "redirect:/books";
     }
@@ -56,7 +61,9 @@ public class BookController {
     }
 
     @PostMapping("{id}")
-    public String edit(@ModelAttribute("book") Book book, @PathVariable int id) {
+    public String edit(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, @PathVariable int id) {
+        if (bindingResult.hasErrors())
+            return "books/edit";
         bookDAO.edit(id, book);
         return "redirect:/books";
     }
