@@ -6,36 +6,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<h2>Book menu</h2>
-<p th:text="${'Title: ' + book.getTitle()}">VALUE</p>
-<p th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
-<p th:text="${'Year: ' + book.getYear()}">VALUE</p>
+<div class="container mt-5">
+    <h2>Book Menu</h2>
 
-<hr>
-<div th:if="${person != null}">
-    <p th:utext="${'<b>Held by:</b> ' + person.getFullName()}">VALUE</p>
-    <form th:method="POST" th:action="@{/books/{id}/free_book(id=${book.getId()})}">
-        <input type="submit" value="Free book"/>
+    <p class="lead mb-2" th:text="${'Title: ' + book.getTitle()}">VALUE</p>
+    <p class="lead mb-2" th:text="${'Author: ' + book.getAuthor()}">VALUE</p>
+    <p class="lead mb-2" th:text="${'Year: ' + book.getYear()}">VALUE</p>
+
+    <hr class="my-4">
+
+    <div th:if="${person != null}" class="mb-3">
+        <p th:utext="${'<b>Held by:</b> ' + person.getFullName()}">VALUE</p>
+        <form th:method="POST" th:action="@{/books/{id}/free_book(id=${book.getId()})}">
+            <button type="submit" class="btn btn-danger">Free book</button>
+        </form>
+    </div>
+
+    <div th:unless="${person != null}" class="mb-3">
+        <p th:text="'Not held by anyone'">VALUE</p>
+        <form th:method="POST" th:action="@{/books/{id}/assign_person(id=${book.getId()})}">
+            <div class="mb-2">
+                <select th:object="${persona}" th:field="*{id}" id="person" class="form-select">
+                    <option th:each="personOption : ${people}" th:value="${personOption.getId()}" th:text="${personOption.getFullName()}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Assign</button>
+        </form>
+    </div>
+
+    <hr class="my-4">
+
+    <a th:href="@{/books/{id}/edit(id=${book.getId()})}" class="btn btn-warning">Edit</a>
+
+    <form th:method="GET" th:action="@{/books/delete/{id}(id=${book.getId()})}" class="d-inline">
+        <button type="submit" class="btn btn-danger">Delete</button>
     </form>
 </div>
-<div th:unless="${person != null}">
-    <p th:text="'Not held by anyone'">VALUE</p>
-    <form th:method="POST" th:action="@{/books/{id}/assign_person(id=${book.getId()})}">
-        <select th:object="${persona}" th:field="*{id}" id="person">
-            <option th:each="personOption : ${people}" th:value="${personOption.getId()}"
-            th:text="${personOption.getFullName()}"></option>
-        </select>
-        <input type="submit" value="Assign">
-    </form>
-</div>
-<hr>
-
-
-<a th:href="@{/books/{id}/edit(id=${book.getId()})}">Edit</a>
-
-<form th:method="GET" th:action="@{/books/delete/{id}(id=${book.getId()})}">
-    <input type="submit" value="Delete">
-</form>
-
 </body>
 </html>
