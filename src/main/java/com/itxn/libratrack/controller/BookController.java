@@ -1,9 +1,9 @@
 package com.itxn.libratrack.controller;
 
 import com.itxn.libratrack.dao.BookDAO;
-import com.itxn.libratrack.dao.PersonDAO;
 import com.itxn.libratrack.model.Book;
 import com.itxn.libratrack.model.Person;
+import com.itxn.libratrack.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +18,12 @@ public class BookController {
 
 
     private final BookDAO bookDAO;
-    private final PersonDAO personDAO;
+    private final PersonService personService;
 
     @Autowired
-    public BookController(BookDAO bookDAO, PersonDAO personDAO) {
+    public BookController(BookDAO bookDAO, PersonService personService) {
         this.bookDAO = bookDAO;
-        this.personDAO = personDAO;
+        this.personService = personService;
     }
 
     @GetMapping
@@ -36,7 +36,7 @@ public class BookController {
     public String show (@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDAO.show(id));
         model.addAttribute("person", bookDAO.showHolder(id));
-        model.addAttribute("people", personDAO.index());
+        model.addAttribute("people", personService.index());
         model.addAttribute("persona", new Person());
         return "books/show";
     }

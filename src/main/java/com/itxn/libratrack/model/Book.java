@@ -1,10 +1,15 @@
 package com.itxn.libratrack.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+@Entity
 public class Book {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int personId;
     @NotEmpty(message = "Title shouldn't be empty!")

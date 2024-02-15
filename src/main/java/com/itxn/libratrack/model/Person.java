@@ -1,12 +1,17 @@
 package com.itxn.libratrack.model;
 
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Person {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Min(value = 1900, message = "Birth year cannot be earlier than 1900")
     private int birthYear;

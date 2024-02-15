@@ -1,7 +1,7 @@
 package com.itxn.libratrack.util;
 
-import com.itxn.libratrack.dao.PersonDAO;
 import com.itxn.libratrack.model.Person;
+import com.itxn.libratrack.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -10,11 +10,11 @@ import org.springframework.validation.Validator;
 @Component
 public class PersonValidator implements Validator {
 
-    private final PersonDAO personDAO;
+    private final PersonService personService;
 
     @Autowired
-    public PersonValidator(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonValidator(PersonService personDAO) {
+        this.personService = personDAO;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class PersonValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
 
-        if (personDAO.show(person.getFullName()).isPresent())
+        if (personService.show(person.getFullName())!=null)
             errors.rejectValue("fullName", "", "This person already exists!");
     }
 }
