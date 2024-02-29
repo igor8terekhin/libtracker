@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 @Service
 @Transactional(readOnly = false)
@@ -55,9 +54,7 @@ public class PersonService {
         Person person = pr.findById(id).orElse(null);
         List<Book> books;
         if (person != null) {
-             Query q = em.createNativeQuery("SELECT b.title, b.author, b.year FROM book b WHERE b.person_id = :id", Book.class);
-             books = (List<Book>) q;
-             return books;
+             return em.createNativeQuery("SELECT b.title, b.author, b.year FROM book b WHERE b.person_id = :id", Book.class).getResultList();
         }
         return null;
     }
