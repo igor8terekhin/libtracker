@@ -12,7 +12,7 @@ public class Person {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Min(value = 1900, message = "Birth year cannot be earlier than 1900")
     private int birthYear;
     @NotEmpty (message = "Name shouldn't be empty!")
@@ -29,11 +29,11 @@ public class Person {
         this.fullName = fullName;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

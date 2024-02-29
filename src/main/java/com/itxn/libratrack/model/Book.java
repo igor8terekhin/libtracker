@@ -11,7 +11,8 @@ public class Book {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int personId;
+    @Column(name = "person_id")
+    private Integer personId;
     @NotEmpty(message = "Title shouldn't be empty!")
     private String title;
     @NotEmpty(message = "Author shouldn't be empty!")
@@ -28,7 +29,7 @@ public class Book {
         this.year = year;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -36,11 +37,11 @@ public class Book {
         this.id = id;
     }
 
-    public int getPersonId() {
+    public Integer getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(Integer personId) {
         this.personId = personId;
     }
 
