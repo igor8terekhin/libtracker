@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
     @Modifying
@@ -15,4 +17,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Modifying
     @Query(value = "UPDATE book SET person_id = ? WHERE id = ?", nativeQuery = true)
     void assignPerson(int personId, int bookId);
+
+    List<Book> findAllByPersonId(Integer personId);
 }

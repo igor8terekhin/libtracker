@@ -11,62 +11,62 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = false)
+@Transactional
 public class BookService {
 
-    private final BookRepository br;
-    private final PersonRepository pr;
+    private final BookRepository bookRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
-    public BookService(BookRepository br, PersonRepository pr) {
-        this.br = br;
-        this.pr = pr;
+    public BookService(BookRepository bookRepository, PersonRepository personRepository) {
+        this.bookRepository = bookRepository;
+        this.personRepository = personRepository;
     }
 
     public List<Book> index() {
-        return br.findAll();
+        return bookRepository.findAll();
     }
 
     public void create(Book book) {
-        br.save(book);
+        bookRepository.save(book);
     }
 
     public Book show(int id) {
-        return br.findById(id).stream().findAny().orElse(null);
+        return bookRepository.findById(id).stream().findAny().orElse(null);
     }
 
     public void edit(int id, Book updatedBook) {
-        Book book = br.findById(id).orElse(null);
+        Book book = bookRepository.findById(id).orElse(null);
 
         if (book != null) {
             book.setAuthor(updatedBook.getAuthor());
             book.setTitle(updatedBook.getTitle());
             book.setYear(updatedBook.getYear());
-            br.save(book);
+            bookRepository.save(book);
         }
     }
 
     public void delete(int id) {
-        br.deleteById(id);
+        bookRepository.deleteById(id);
     }
 
     public Person showHolder(Integer id) {
-        Book book = br.findById(id).stream().findAny().orElse(null);
+        Book book = bookRepository.findById(id).stream().findAny().orElse(null);
         if (book != null) {
             if (book.getPersonId() == null)
                 return null;
             else
-                return pr.findById(book.getPersonId()).stream().findAny().orElse(null);
+                return personRepository.findById(book.getPersonId()).stream().findAny().orElse(null);
         }
         else
             return null;
     }
 
     public void freeBook(int id) {
-        br.freeBook(id);
+        bookRepository.freeBook(id);
     }
 
     public void assignPerson(Person person, int id) {
-        br.assignPerson(person.getId(), id);
+        bookRepository.assignPerson(person.getId(), id);
     }
 }
