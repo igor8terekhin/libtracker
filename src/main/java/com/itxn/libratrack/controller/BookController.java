@@ -32,9 +32,22 @@ public class BookController {
         return "books/index";
     }
 
+    @GetMapping (params = {"sort_by"})
+    public String index(Model model, @RequestParam("sort_by") String sortBy) {
+        model.addAttribute("books", bookService.index(sortBy));
+        return "books/index";
+    }
+
     @GetMapping (params = {"page", "books_per_page"})
     public String index(Model model, @RequestParam("page") Integer page, @RequestParam("books_per_page") Integer booksPerPage) {
         model.addAttribute("books", bookService.index(page, booksPerPage));
+        return "books/index";
+    }
+
+    @GetMapping (params = {"page", "books_per_page", "sort_by"})
+    public String index(Model model, @RequestParam("page") Integer page,
+                        @RequestParam("books_per_page") Integer booksPerPage, @RequestParam("sort_by") String sortBy) {
+        model.addAttribute("books", bookService.index(page, booksPerPage, sortBy));
         return "books/index";
     }
 

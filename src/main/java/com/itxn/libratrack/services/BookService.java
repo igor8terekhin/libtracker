@@ -6,6 +6,7 @@ import com.itxn.libratrack.repositories.BookRepository;
 import com.itxn.libratrack.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,14 @@ public class BookService {
 
     public List<Book> index() {
         return bookRepository.findAll();
+    }
+
+    public List<Book> index(String sortBy) {
+        return bookRepository.findAll(Sort.by(sortBy));
+    }
+
+    public List<Book> index(Integer page, Integer booksPerPage, String sortBy) {
+        return bookRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by(sortBy))).getContent();
     }
 
     public List<Book> index(Integer page, Integer booksPerPage) {
