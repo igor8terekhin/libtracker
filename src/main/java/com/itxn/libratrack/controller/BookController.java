@@ -32,6 +32,12 @@ public class BookController {
         return "books/index";
     }
 
+    @GetMapping (params = {"page", "books_per_page"})
+    public String index(Model model, @RequestParam("page") Integer page, @RequestParam("books_per_page") Integer booksPerPage) {
+        model.addAttribute("books", bookService.index(page, booksPerPage));
+        return "books/index";
+    }
+
     @GetMapping("{id}")
     public String show (@PathVariable("id") Integer id, Model model) {
         model.addAttribute("book", bookService.show(id));
