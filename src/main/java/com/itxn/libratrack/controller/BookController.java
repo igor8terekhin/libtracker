@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public String create (Model model, Book book) {
+    public String create() {
         return "books/create";
     }
 
@@ -103,5 +103,16 @@ public class BookController {
     public String assignPerson(Person person, @PathVariable Integer id) {
         bookService.assignPerson(person, id);
         return "redirect:/books/" + id;
+    }
+
+    @GetMapping("/search")
+    public String searchPage(@ModelAttribute("book") Book book) {
+        return "books/search";
+    }
+
+    @PostMapping("/search")
+    public String searchBook(Model model, @RequestParam String title, Book book) {
+        model.addAttribute("books", bookService.searchByTitle(title));
+        return "books/search";
     }
 }

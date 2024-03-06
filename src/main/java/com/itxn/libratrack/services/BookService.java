@@ -83,4 +83,8 @@ public class BookService {
     public void assignPerson(Person person, int id) {
         bookRepository.assignPerson(person.getId(), id);
     }
+
+    public List<Book> searchByTitle(String title) {
+        return bookRepository.findByTitleContains(title);
+    }
 }
