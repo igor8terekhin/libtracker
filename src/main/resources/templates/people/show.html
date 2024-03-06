@@ -15,11 +15,11 @@
 
   <hr class="my-4">
 
-  <div th:if="${books.empty}" class="mb-3">
+  <div th:if="${#lists.isEmpty(books)}" class="mb-3">
     <p class="lead">This person doesn't have any books yet.</p>
   </div>
 
-  <div th:if="${not books.empty}" class="mb-4">
+  <div th:if="${not #lists.isEmpty(books)}" class="mb-4">
     <h5>Books:</h5>
     <div th:each="book : ${books}" class="mx-auto">
       <ul>
