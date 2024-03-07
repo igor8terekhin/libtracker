@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -86,5 +87,14 @@ public class BookService {
 
     public List<Book> searchByTitle(String title) {
         return bookRepository.findByTitleContains(title);
+    }
+
+    public List<Person> showHolderByBooks(List<Book> bookList) {
+        List<Person> people = personRepository.findAll();
+
+      return people.stream()
+              .filter(person -> person != null && bookList.stream()
+                      .anyMatch(book -> book != null && book.getPersonId() != null && book.getPersonId().equals(person.getId())))
+              .collect(Collectors.toList());
     }
 }

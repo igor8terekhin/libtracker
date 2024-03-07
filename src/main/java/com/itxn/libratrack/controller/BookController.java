@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("books")
@@ -106,13 +107,15 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public String searchPage(@ModelAttribute("book") Book book) {
+    public String searchPage(@ModelAttribute("book") Book book, @ModelAttribute("person") Person person) {
         return "books/search";
     }
 
     @PostMapping("/search")
     public String searchBook(Model model, @RequestParam String title, Book book) {
-        model.addAttribute("books", bookService.searchByTitle(title));
+        List<Book> bookList = bookService.searchByTitle(title);
+        model.addAttribute("books", bookList);
+        model.addAttribute("people", bookService.showHolderByBooks(bookList));
         return "books/search";
     }
 }
