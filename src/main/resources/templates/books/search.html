@@ -21,8 +21,10 @@
 
     <h2 class="mt-5">Search results</h2>
 
-    <div th:if="${#lists.isEmpty(books)}" class="mb-2">
-        <p th:text="'No such book'">VALUE</p>
+    <div th:if="${books}">
+        <div th:if="${#lists.isEmpty(books)}" class="mb-2">
+            <p th:text="'No such book'">VALUE</p>
+        </div>
     </div>
 
     <div th:each="book : ${books}" class="mb-2">
