@@ -28,7 +28,7 @@ public class Book {
     private LocalDate takenTs;
 
     @Transient
-    private boolean isExpired;
+    private boolean expired;
 
     public Book() {
     }
@@ -88,10 +88,10 @@ public class Book {
     }
 
     public boolean isExpired() {
-        return isExpired;
+        return expired;
     }
 
     public void setExpired(boolean expired) {
-        isExpired = expired;
+        this.expired = expired;
     }
 }
