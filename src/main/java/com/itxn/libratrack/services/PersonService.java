@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 @Service
 @Transactional
@@ -54,6 +55,16 @@ public class PersonService {
         Person person = personRepository.findById(id).orElse(null);
         List<Book> books = bookRepository.findAllByPersonId(person.getId());
         if (!books.isEmpty()) {
+
+            for (Book b : books) {
+                if (b.getTakenTs() != null) {
+                    LocalDate currDate = LocalDate.now();
+                    if (b.getTakenTs().toEpochDay() < currDate.minusDays(10).toEpochDay()) {
+                        b.setExpired(true);
+                    }
+                }
+            }
+
              return books;
         }
         return null;

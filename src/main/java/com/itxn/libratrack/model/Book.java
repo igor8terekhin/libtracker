@@ -1,8 +1,11 @@
 package com.itxn.libratrack.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 
 @Entity
 public class Book {
@@ -19,6 +22,13 @@ public class Book {
     private String author;
     @Min(value = 0, message = "Year cannot be earlier than 0")
     private int year;
+
+    @DateTimeFormat
+    @Column(name = "taken_ts")
+    private LocalDate takenTs;
+
+    @Transient
+    private boolean isExpired;
 
     public Book() {
     }
@@ -67,5 +77,21 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public LocalDate getTakenTs() {
+        return takenTs;
+    }
+
+    public void setTakenTs(LocalDate takenTs) {
+        this.takenTs = takenTs;
+    }
+
+    public boolean isExpired() {
+        return isExpired;
+    }
+
+    public void setExpired(boolean expired) {
+        isExpired = expired;
     }
 }

@@ -11,8 +11,12 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
     @Modifying
-    @Query(value = "UPDATE book SET person_id = null WHERE id = ?", nativeQuery = true)
+    @Query(value = "UPDATE book SET person_id = null, taken_ts = null WHERE id = ?", nativeQuery = true)
     void freeBook(int id);
+
+    @Modifying
+    @Query(value = "UPDATE book SET taken_ts = current_timestamp WHERE id = ?", nativeQuery = true)
+    void setTakenTime(int id);
 
     @Modifying
     @Query(value = "UPDATE book SET person_id = ? WHERE id = ?", nativeQuery = true)

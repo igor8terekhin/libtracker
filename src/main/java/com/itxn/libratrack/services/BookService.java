@@ -83,6 +83,7 @@ public class BookService {
 
     public void assignPerson(Person person, int id) {
         bookRepository.assignPerson(person.getId(), id);
+        bookRepository.setTakenTime(id);
     }
 
     public List<Book> searchByTitle(String title) {

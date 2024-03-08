@@ -23,7 +23,8 @@
     <h5>Books:</h5>
     <div th:each="book : ${books}" class="mx-auto">
       <ul>
-        <li th:text="${book.getTitle()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}">text</li>
+        <li th:text="${book.getTitle()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}"
+            th:style="${book.isExpired() == true ? 'color:red' : 'color:blue'}">text</li>
       </ul>
     </div>
   </div>
