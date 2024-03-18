@@ -19,6 +19,11 @@ public class Person {
     @Size(min = 2, max = 100, message = "Name should have at least 2 characters!")
     private String fullName;
 
+    @Column(name = "username")
+    private String username;
+    @Column(name = "password")
+    private String password;
+
     public Person() {
 
     }
@@ -51,5 +56,20 @@ public class Person {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
