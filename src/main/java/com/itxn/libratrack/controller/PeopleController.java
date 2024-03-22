@@ -4,12 +4,14 @@ import com.itxn.libratrack.model.Person;
 import com.itxn.libratrack.services.PersonService;
 import com.itxn.libratrack.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
@@ -28,6 +30,18 @@ public class PeopleController {
     public String index(Model model) {
         model.addAttribute("people", personService.index());
         return "people/index";
+    }
+
+    @GetMapping("/seeAll")
+    @ResponseBody
+    public List<Person> indexPeople(Model model) {
+        return personService.index();
+    }
+
+    @GetMapping("/seePerson/{id}")
+    @ResponseBody
+    public Person showOnePerson(@PathVariable("id") int id) {
+        return personService.show(id);
     }
 
     @GetMapping("/{id}")

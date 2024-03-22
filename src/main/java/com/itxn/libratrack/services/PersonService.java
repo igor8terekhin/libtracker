@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 public class PersonService {
@@ -32,7 +34,8 @@ public class PersonService {
     }
 
     public Person show(int id) {
-        return personRepository.findById(id).stream().findAny().orElse(null);
+        Optional<Person> person = personRepository.findById(id);
+        return person.orElse(null);
     }
 
     public Person show(String fullName) {
